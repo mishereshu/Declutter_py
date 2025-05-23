@@ -1,29 +1,31 @@
-#declutter.py A Smart Downloads Folder Organizer
+declutter.py — Smart Downloads Folder Organizer
+Are you tired of searching through a cluttered ~/Downloads folder?
 
-Tired of digging through a chaotic `~/Downloads` folder?
+declutter.py is a Python utility that automatically organizes your Downloads directory by sorting files based on:
 
-`declutter.py` is a Python utility that automatically organizes your Downloads directory by:
+File type (e.g., PDFs, Images, Archives)
 
-- 📁 File type (e.g. PDFs, Images, Archives)
-- 📅 Date modified
-- 📦 File size (large vs small)
-- 📝 Optional logging for undoing changes
+Date modified
 
----
+File size (large vs. small)
 
-##Features
+Optional logging for undoing changes
 
-- Sorts files into clean subfolders like `/Downloads/Documents`, `/Downloads/Images`, etc.
-- Automatically creates folders based on file type
-- Moves large files into a separate folder (`/Downloads/Large Files`)
-- Works cross-platform (Linux, macOS, Windows)
+Features
+Organizes files into well-structured subfolders like /Downloads/Documents, /Downloads/Images, etc.
 
----
+Automatically creates folders based on file type if they don’t exist
 
-## 🔧 Installation
+Moves large files to a dedicated folder (/Downloads/Large Files)
 
-Make sure you have Python 3 installed.
+Cross-platform support: works on Linux, macOS, and Windows
 
-```bash
+Installation
+Make sure you have Python 3 installed on your system.
+
+bash
+Copy
+Edit
 git clone https://github.com/mishereshu/declutter.py.git
 cd declutter.py
+Let me know if you want me to help with usage instructions or anything else!
