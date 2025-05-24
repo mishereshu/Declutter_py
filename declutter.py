@@ -1,16 +1,16 @@
 import os
 import shutil
 from pathlib import Path
-from datetime import datetime
+from tkinter import Tk, Button, Label, messagebox
 import platform
 
-#Cross-platform Downloads folder detection
+# Detect Downloads folder
 if platform.system() == "Windows":
     DOWNLOADS = Path(os.environ["USERPROFILE"]) / "Downloads"
 else:
     DOWNLOADS = Path.home() / "Downloads"
 
-#Subfolders to organize into
+# File categories
 SORT_DIRS = {
     "Images": [".jpg", ".jpeg", ".png", ".gif", ".svg"],
     "Documents": [".pdf", ".docx", ".txt", ".md"],
@@ -22,34 +22,34 @@ SORT_DIRS = {
     "Other": []
 }
 
-#Move file to the matching folder
 def move_file(file_path):
     ext = file_path.suffix.lower()
-    target_folder = None
-
+    target_folder = "Other"
     for folder, extensions in SORT_DIRS.items():
         if ext in extensions:
             target_folder = folder
             break
-    if not target_folder:
-        target_folder = "Other"
-
     destination = DOWNLOADS / target_folder
     destination.mkdir(exist_ok=True)
+    shutil.move(str(file_path), str(destination / file_path.name))
 
+def declutter_downloads():
     try:
-        shutil.move(str(file_path), str(destination / file_path.name))
-        print(f"Moved: {file_path.name} → {target_folder}/")
+        file_count = 0
+        for item in DOWNLOADS.iterdir():
+            if item.is_file():
+                move_file(item)
+                file_count += 1
+        messagebox.showinfo("Success", f"Organized {file_count} files.")
     except Exception as e:
-        print(f" Failed to move {file_path.name}: {e}")
+        messagebox.showerror("Error", str(e))
 
-#Scan and sort files
-def decrapify():
-    print(f"\n Cleaning up: {DOWNLOADS}")
-    for item in DOWNLOADS.iterdir():
-        if item.is_file():
-            move_file(item)
-    print("Done!")
+# GUI
+root = Tk()
+root.title("Declutter Downloads")
+root.geometry("300x150")
 
-if __name__ == "__main__":
-    decrapify()
+Label(root, text="Declutter your Downloads folder!", pady=10).pack()
+Button(root, text="Start Declutter", command=declutter_downloads, width=20).pack(pady=20)
+
+root.mainloop()
